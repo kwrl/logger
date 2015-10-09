@@ -1,7 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#define LOG_NAME "SEMEOTICONS"
+#define LOG_NAME "LOGGER"
 
 #include <string>
 #include <mutex>
