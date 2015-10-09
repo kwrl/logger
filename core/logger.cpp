@@ -10,8 +10,8 @@ namespace log {
     }
 
     /*
-       Fetches the LoggerSingleton instance and passes the  
-
+        Passes a message along to the LoggerSingleton, which in turn will
+        send it to syslog.
      */
     void Logger::print(std::string &msg) {
         detail::LoggerSingleton::getInstance().print(log_level, msg);
