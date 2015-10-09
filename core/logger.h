@@ -34,7 +34,6 @@ namespace log {
             ~Logger();
 
             void operator<<( std::string& ); 
-            void operator<<( std::ostream& );
             void print( std::string& );
 
         private:
