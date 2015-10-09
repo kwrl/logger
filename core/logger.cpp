@@ -2,19 +2,19 @@
 #include <sstream>
 
 namespace log {
-    Logger::Logger(unsigned int log_level) : log_level(log_level) {}
+    Logger::Logger(unsigned int log_level) : log_level_(log_level) {}
 
     //Syntactic sugar
     void Logger::operator<<(std::string &msg) {
-        print(msg);
+        Print(msg);
     }
 
     /*
         Passes a message along to the LoggerSingleton, which in turn will
         send it to syslog.
      */
-    void Logger::print(std::string &msg) {
-        detail::LoggerSingleton::getInstance().print(log_level, msg);
+    void Logger::Print(std::string &msg) {
+        detail::LoggerSingleton::get_instance().Print(log_level_, msg);
     }
 
     Logger::~Logger() {}
@@ -30,10 +30,10 @@ namespace log {
                    );
         }
 
-        void LoggerSingleton::print(unsigned int log_level, std::string &msg) {
-            lock.lock();
+        void LoggerSingleton::Print(unsigned int log_level, std::string &msg) {
+            lock_.lock();
             syslog(log_level, "%s", msg.c_str());
-            lock.unlock();
+            lock_.unlock();
         }
 
         LoggerSingleton::~LoggerSingleton() {

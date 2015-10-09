@@ -34,10 +34,10 @@ namespace log {
             ~Logger();
 
             void operator<<( std::string& ); 
-            void print( std::string& );
+            void Print( std::string& );
 
         private:
-            unsigned int log_level;
+            unsigned int log_level_;
     };
 
     namespace detail {
@@ -47,19 +47,19 @@ namespace log {
          */
         class LoggerSingleton {
             public:
-                static LoggerSingleton& getInstance() {
-                    static LoggerSingleton instance;
-                    return instance;
+                static LoggerSingleton& get_instance() {
+                    static LoggerSingleton instance_;
+                    return instance_;
                 }
 
-                void print( unsigned int, std::string& );
+                void Print( unsigned int, std::string& );
 
             private:
                 LoggerSingleton(); 
-                LoggerSingleton(LoggerSingleton const&); //Not to be implemented
-                void operator=(LoggerSingleton const&); //Not to be implemented
+                LoggerSingleton( LoggerSingleton const& ); //Not to be implemented
+                void operator=( LoggerSingleton const& ); //Not to be implemented
                 ~LoggerSingleton();
-                std::mutex lock;
+                std::mutex lock_;
         };
 
     };
